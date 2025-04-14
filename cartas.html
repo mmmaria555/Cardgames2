@@ -104,7 +104,7 @@
 
 <section>
     <h2>Monte sua carta personalizada com dicas</h2>
-    <p>Edite o nome, descrição, imagem e 10 dicas abaixo, e exporte como imagem para compartilhar!</p>
+    <p>Edite o nome, descrição, imagem e 10 dicas abaixo, personalize o fundo e exporte como imagem para compartilhar!</p>
 </section>
 
 <div class="workspace">
@@ -112,13 +112,18 @@
         <input type="text" id="titulo" placeholder="Título da Carta (Nome)">
         <textarea id="subtitulo" rows="2" placeholder="Descrição ou Subtítulo"></textarea>
         <input type="url" id="imagem" placeholder="URL da Imagem de Fundo">
+
+        <label for="corFundo">Escolha a cor de fundo:</label>
+        <input type="color" id="corFundo" value="#FFD1D1">
+
         <h4>Dicas:</h4>
         <div id="dicasCampos"></div>
+
         <button onclick="atualizarCarta()">Atualizar</button>
         <button onclick="exportarCarta()">Exportar como Imagem</button>
     </div>
 
-    <div class="preview" id="carta">
+    <div class="preview" id="carta" style="background-color: #FFD1D1;">
         <img src="https://via.placeholder.com/300x200" id="imgPreview" alt="Imagem da Carta">
         <h2 id="tituloPreview">Nome da Carta</h2>
         <p id="subtituloPreview">Descrição da carta aqui.</p>
@@ -156,10 +161,12 @@
         const titulo = document.getElementById('titulo').value;
         const subtitulo = document.getElementById('subtitulo').value;
         const imagem = document.getElementById('imagem').value;
+        const corFundo = document.getElementById('corFundo').value;
 
         document.getElementById('tituloPreview').innerText = titulo || "Nome da Carta";
         document.getElementById('subtituloPreview').innerText = subtitulo || "Descrição da carta aqui.";
         document.getElementById('imgPreview').src = imagem || "https://via.placeholder.com/300x200";
+        document.getElementById('carta').style.backgroundColor = corFundo;
 
         const lista = document.getElementById('listaDicasPreview');
         lista.innerHTML = "";
