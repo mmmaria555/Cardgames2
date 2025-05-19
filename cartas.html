@@ -83,13 +83,9 @@
     button:hover {
       background-color: #005fa3;
     }
-    .preview h2, .preview p, .preview ul {
+    .preview h2, .preview p {
       margin: 6px 0;
       text-align: left;
-    }
-    .preview ul {
-      padding: 0 20px;
-      list-style-type: decimal;
     }
   </style>
 </head>
@@ -113,7 +109,7 @@
 </section>
 
 <div class="workspace">
-  <!-- Editor de Dicas -->
+  <!-- Editor de Dicas (sem alterações) -->
   <div class="editor" id="editorDicas">
     <h3>Editor de Dicas</h3>
     <label for="tituloD">Título</label>
@@ -132,21 +128,19 @@
     <button onclick="exportarCarta('D')">Exportar Dicas</button>
   </div>
 
-  <!-- Editor de Regras -->
+  <!-- Editor de Regras (campo único de descrição) -->
   <div class="editor" id="editorRegras">
     <h3>Editor de Regras</h3>
     <label for="tituloR">Título</label>
     <input type="text" id="tituloR" placeholder="Nome da Carta">
-    <label for="subtituloR">Descrição</label>
-    <textarea id="subtituloR" rows="2" placeholder="Subtítulo"></textarea>
+    <label for="subtituloR">Descrição das Regras</label>
+    <textarea id="subtituloR" rows="6" placeholder="Descreva aqui todas as regras..."></textarea>
     <label for="imagemR">URL da Imagem</label>
     <input type="url" id="imagemR" placeholder="https://...">
     <label for="corFundoR">Cor do Fundo</label>
     <input type="color" id="corFundoR" value="#FFD1D1">
     <label for="corTextoR">Cor do Texto</label>
     <input type="color" id="corTextoR" value="#000000">
-    <h4>Regras (1–10)</h4>
-    <div id="regrasCamposR"></div>
     <button onclick="atualizarCarta('R')">Atualizar Regras</button>
     <button onclick="exportarCarta('R')">Exportar Regras</button>
   </div>
@@ -157,8 +151,7 @@
     <h2 id="tituloPreviewD">Nome da Carta</h2>
     <p id="subtituloPreviewD">Descrição da carta aqui.</p>
     <ul id="listaDicasPreviewD">
-      <li>Dica 1</li><li>Dica 2</li><li>Dica 3</li><li>Dica 4</li><li>Dica 5</li>
-      <li>Dica 6</li><li>Dica 7</li><li>Dica 8</li><li>Dica 9</li><li>Dica 10</li>
+      <li>Dica 1</li><li>Dica 2</li>…<li>Dica 10</li>
     </ul>
   </div>
 
@@ -166,11 +159,7 @@
   <div class="preview" id="cartaR" style="background-color:#FFD1D1; color:#000000;">
     <img src="https://via.placeholder.com/300x200" id="imgPreviewR" alt="Carta de Regras">
     <h2 id="tituloPreviewR">Nome da Carta</h2>
-    <p id="subtituloPreviewR">Descrição da carta aqui.</p>
-    <ul id="listaRegrasPreviewR">
-      <li>Regra 1</li><li>Regra 2</li><li>Regra 3</li><li>Regra 4</li><li>Regra 5</li>
-      <li>Regra 6</li><li>Regra 7</li><li>Regra 8</li><li>Regra 9</li><li>Regra 10</li>
-    </ul>
+    <p id="subtituloPreviewR">Descreva aqui todas as regras...</p>
   </div>
 </div>
 
@@ -180,60 +169,55 @@
 </footer>
 
 <script>
-  // gera campos Dicas e Regras
-  function gerarCampos(prefix) {
-    const container = document.getElementById(
-      prefix==='D' ? 'dicasCamposD' : 'regrasCamposR'
-    );
+  // Geração de campos de dicas
+  (function(){
+    const container = document.getElementById('dicasCamposD');
     for (let i=1; i<=10; i++){
       const inp = document.createElement('input');
-      inp.type='text';
-      inp.id = prefix + (prefix==='D'?'ica':'egra') + i;
-      inp.placeholder = (prefix==='D'?'Dica ':'Regra ') + i;
+      inp.type = 'text';
+      inp.id = 'dica' + i;
+      inp.placeholder = 'Dica ' + i;
       container.appendChild(inp);
     }
-  }
-  gerarCampos('D');
-  gerarCampos('R');
+  })();
 
   function atualizarCarta(prefix){
-    const sufix = prefix==='D' ? 'D' : 'R';
-    const carta = document.getElementById('carta'+sufix);
-    document.getElementById('tituloPreview'+sufix).innerText =
-      document.getElementById('titulo'+sufix).value || 'Nome da Carta';
-    document.getElementById('subtituloPreview'+sufix).innerText =
-      document.getElementById('subtitulo'+sufix).value || 'Descrição da carta aqui.';
-    document.getElementById('imgPreview'+sufix).src =
-      document.getElementById('imagem'+sufix).value || 'https://via.placeholder.com/300x200';
-    carta.style.backgroundColor =
-      document.getElementById('corFundo'+sufix).value;
-    carta.style.color =
-      document.getElementById('corTexto'+sufix).value;
+    if (prefix === 'D') {
+      // Dicas
+      document.getElementById('tituloPreviewD').innerText =
+        document.getElementById('tituloD').value || 'Nome da Carta';
+      document.getElementById('subtituloPreviewD').innerText =
+        document.getElementById('subtituloD').value || 'Descrição da carta aqui.';
+      document.getElementById('imgPreviewD').src =
+        document.getElementById('imagemD').value || 'https://via.placeholder.com/300x200';
+      document.getElementById('cartaD').style.backgroundColor =
+        document.getElementById('corFundoD').value;
+      document.getElementById('cartaD').style.color =
+        document.getElementById('corTextoD').value;
 
-    const lista = document.getElementById(
-      prefix==='D' ? 'listaDicasPreviewD' : 'listaRegrasPreviewR'
-    );
-    lista.innerHTML='';
-    for (let i=1;i<=10;i++){
-      const val = document.getElementById(
-        prefix + (prefix==='D'?'ica':'egra') + i
-      ).value.trim();
-      const li = document.createElement('li');
-      li.textContent = val || ((prefix==='D'?'Dica ':'Regra ')+i);
-      lista.appendChild(li);
+      const ul = document.getElementById('listaDicasPreviewD');
+      ul.innerHTML = '';
+      for (let i=1; i<=10; i++){
+        const txt = document.getElementById('dica'+i).value.trim() || 'Dica ' + i;
+        const li = document.createElement('li');
+        li.textContent = txt;
+        ul.appendChild(li);
+      }
+
+    } else {
+      // Regras
+      document.getElementById('tituloPreviewR').innerText =
+        document.getElementById('tituloR').value || 'Nome da Carta';
+      document.getElementById('subtituloPreviewR').innerText =
+        document.getElementById('subtituloR').value || 'Descreva aqui todas as regras...';
+      document.getElementById('imgPreviewR').src =
+        document.getElementById('imagemR').value || 'https://via.placeholder.com/300x200';
+      document.getElementById('cartaR').style.backgroundColor =
+        document.getElementById('corFundoR').value;
+      document.getElementById('cartaR').style.color =
+        document.getElementById('corTextoR').value;
     }
   }
 
   function exportarCarta(prefix){
-    const id = prefix==='D' ? 'cartaD' : 'cartaR';
-    html2canvas(document.getElementById(id)).then(canvas=>{
-      const link = document.createElement('a');
-      link.download = (prefix==='D'?'dicas':'regras') + '-carta.png';
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-    });
-  }
-</script>
-
-</body>
-</html>
+    const id = prefix === 'D'
