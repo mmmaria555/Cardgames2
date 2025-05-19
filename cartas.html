@@ -1,202 +1,238 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cartas - Jogo de Cartas</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-    <style>
-        body {
-            background-color: #FFD1D1;
-            color: black;
-            font-family: Arial, sans-serif;
-        }
-        header, footer {
-            background-color: #B22222;
-            color: white;
-            padding: 15px;
-            text-align: center;
-        }
-        nav ul {
-            list-style: none;
-            padding: 0;
-        }
-        nav ul li {
-            display: inline;
-            margin: 0 15px;
-        }
-        nav ul li a {
-            text-decoration: none;
-            color: black;
-            font-weight: bold;
-        }
-        nav ul li a:hover {
-            color: #8B0000;
-        }
-        .workspace {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-            margin: 20px auto;
-            max-width: 1200px;
-        }
-        .editor, .preview {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            width: 350px;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        .preview img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-        .editor input, .editor textarea {
-            width: 100%;
-            margin-bottom: 10px;
-            padding: 8px;
-            border: 1px solid #bbb;
-            border-radius: 6px;
-            font-size: 14px;
-        }
-        button {
-            background-color: #0078D7;
-            color: white;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-right: 10px;
-        }
-        button:hover {
-            background-color: #005fa3;
-        }
-        .preview h2, .preview p, .preview ul {
-            margin: 6px 0;
-            text-align: left;
-        }
-        .preview ul {
-            padding: 0 20px;
-            list-style-type: decimal;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cartas - Jogo de Cartas</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <style>
+    body {
+      background-color: #FFD1D1;
+      color: black;
+      font-family: Arial, sans-serif;
+    }
+    header, footer {
+      background-color: #B22222;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+    }
+    nav ul li {
+      display: inline;
+      margin: 0 15px;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+    }
+    nav ul li a:hover {
+      color: #8B0000;
+    }
+    .workspace {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin: 20px auto;
+      max-width: 1200px;
+    }
+    .editor, .preview {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      width: 350px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .preview img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    .editor input, .editor textarea {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
+      border: 1px solid #bbb;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    .editor label {
+      display: block;
+      margin: 8px 0 4px;
+      font-weight: bold;
+    }
+    button {
+      background-color: #0078D7;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    button:hover {
+      background-color: #005fa3;
+    }
+    .preview h2, .preview p, .preview ul {
+      margin: 6px 0;
+      text-align: left;
+    }
+    .preview ul {
+      padding: 0 20px;
+      list-style-type: decimal;
+    }
+  </style>
 </head>
 <body>
 
 <header>
-    <h1>Cartas</h1>
-    <nav>
-        <ul>
-            <li><a href="index.html">Início</a></li>
-            <li><a href="sobre.html">Sobre</a></li>
-            <li><a href="inteligencia-artificial.html">Inteligência Artificial</a></li>
-            <li><a href="contato.html">Contato</a></li>
-        </ul>
-    </nav>
+  <h1>Cartas</h1>
+  <nav>
+    <ul>
+      <li><a href="index.html">Início</a></li>
+      <li><a href="sobre.html">Sobre</a></li>
+      <li><a href="inteligencia-artificial.html">Inteligência Artificial</a></li>
+      <li><a href="contato.html">Contato</a></li>
+    </ul>
+  </nav>
 </header>
 
 <section>
-    <h2>Monte sua carta personalizada com dicas</h2>
-    <p>Edite o nome, descrição, imagem e 10 dicas abaixo, personalize o fundo e exporte como imagem para compartilhar!</p>
+  <h2>Monte sua carta personalizada com dicas ou regras</h2>
+  <p>Use os editores abaixo para criar cartas de Dicas ou de Regras. Em seguida, exporte como imagem!</p>
 </section>
 
 <div class="workspace">
-    <div class="editor">
-        <input type="text" id="titulo" placeholder="Título da Carta (Nome)">
-        <textarea id="subtitulo" rows="2" placeholder="Descrição ou Subtítulo"></textarea>
-        <input type="url" id="imagem" placeholder="URL da Imagem de Fundo">
+  <!-- Editor de Dicas -->
+  <div class="editor" id="editorDicas">
+    <h3>Editor de Dicas</h3>
+    <label for="tituloD">Título</label>
+    <input type="text" id="tituloD" placeholder="Nome da Carta">
+    <label for="subtituloD">Descrição</label>
+    <textarea id="subtituloD" rows="2" placeholder="Subtítulo"></textarea>
+    <label for="imagemD">URL da Imagem</label>
+    <input type="url" id="imagemD" placeholder="https://...">
+    <label for="corFundoD">Cor do Fundo</label>
+    <input type="color" id="corFundoD" value="#FFD1D1">
+    <label for="corTextoD">Cor do Texto</label>
+    <input type="color" id="corTextoD" value="#000000">
+    <h4>Dicas (1–10)</h4>
+    <div id="dicasCamposD"></div>
+    <button onclick="atualizarCarta('D')">Atualizar Dicas</button>
+    <button onclick="exportarCarta('D')">Exportar Dicas</button>
+  </div>
 
-        <label for="corFundo">Escolha a cor de fundo:</label>
-        <input type="color" id="corFundo" value="#FFD1D1">
+  <!-- Editor de Regras -->
+  <div class="editor" id="editorRegras">
+    <h3>Editor de Regras</h3>
+    <label for="tituloR">Título</label>
+    <input type="text" id="tituloR" placeholder="Nome da Carta">
+    <label for="subtituloR">Descrição</label>
+    <textarea id="subtituloR" rows="2" placeholder="Subtítulo"></textarea>
+    <label for="imagemR">URL da Imagem</label>
+    <input type="url" id="imagemR" placeholder="https://...">
+    <label for="corFundoR">Cor do Fundo</label>
+    <input type="color" id="corFundoR" value="#FFD1D1">
+    <label for="corTextoR">Cor do Texto</label>
+    <input type="color" id="corTextoR" value="#000000">
+    <h4>Regras (1–10)</h4>
+    <div id="regrasCamposR"></div>
+    <button onclick="atualizarCarta('R')">Atualizar Regras</button>
+    <button onclick="exportarCarta('R')">Exportar Regras</button>
+  </div>
 
-        <h4>Dicas:</h4>
-        <div id="dicasCampos"></div>
+  <!-- Preview: Dicas -->
+  <div class="preview" id="cartaD" style="background-color:#FFD1D1; color:#000000;">
+    <img src="https://via.placeholder.com/300x200" id="imgPreviewD" alt="Carta de Dicas">
+    <h2 id="tituloPreviewD">Nome da Carta</h2>
+    <p id="subtituloPreviewD">Descrição da carta aqui.</p>
+    <ul id="listaDicasPreviewD">
+      <li>Dica 1</li><li>Dica 2</li><li>Dica 3</li><li>Dica 4</li><li>Dica 5</li>
+      <li>Dica 6</li><li>Dica 7</li><li>Dica 8</li><li>Dica 9</li><li>Dica 10</li>
+    </ul>
+  </div>
 
-        <button onclick="atualizarCarta()">Atualizar</button>
-        <button onclick="exportarCarta()">Exportar como Imagem</button>
-    </div>
-
-    <div class="preview" id="carta" style="background-color: #FFD1D1;">
-        <img src="https://via.placeholder.com/300x200" id="imgPreview" alt="Imagem da Carta">
-        <h2 id="tituloPreview">Nome da Carta</h2>
-        <p id="subtituloPreview">Descrição da carta aqui.</p>
-        <ul id="listaDicasPreview">
-            <li>Dica 1</li>
-            <li>Dica 2</li>
-            <li>Dica 3</li>
-            <li>Dica 4</li>
-            <li>Dica 5</li>
-            <li>Dica 6</li>
-            <li>Dica 7</li>
-            <li>Dica 8</li>
-            <li>Dica 9</li>
-            <li>Dica 10</li>
-        </ul>
-    </div>
+  <!-- Preview: Regras -->
+  <div class="preview" id="cartaR" style="background-color:#FFD1D1; color:#000000;">
+    <img src="https://via.placeholder.com/300x200" id="imgPreviewR" alt="Carta de Regras">
+    <h2 id="tituloPreviewR">Nome da Carta</h2>
+    <p id="subtituloPreviewR">Descrição da carta aqui.</p>
+    <ul id="listaRegrasPreviewR">
+      <li>Regra 1</li><li>Regra 2</li><li>Regra 3</li><li>Regra 4</li><li>Regra 5</li>
+      <li>Regra 6</li><li>Regra 7</li><li>Regra 8</li><li>Regra 9</li><li>Regra 10</li>
+    </ul>
+  </div>
 </div>
 
 <footer style="background-color: #B22222; color: white;">
-    <p>&copy; 2025 Jogo de Cartas.</p>
-    <p>Hospedado no <a href="https://mmmaria555.github.io/Cardgames/" target="_blank" style="color: white; text-decoration: underline;">GitHub Pages</a></p>
+  <p>&copy; 2025 Jogo de Cartas.</p>
+  <p>Hospedado no <a href="https://mmmaria555.github.io/Cardgames/" target="_blank" style="color:white;text-decoration:underline;">GitHub Pages</a></p>
 </footer>
 
 <script>
-    const dicasContainer = document.getElementById('dicasCampos');
-    for (let i = 1; i <= 10; i++) {
-        const input = document.createElement('input');
-        input.type = "text";
-        input.id = "dica" + i;
-        input.placeholder = `Dica ${i}`;
-        dicasContainer.appendChild(input);
+  // gera campos Dicas e Regras
+  function gerarCampos(prefix) {
+    const container = document.getElementById(
+      prefix==='D' ? 'dicasCamposD' : 'regrasCamposR'
+    );
+    for (let i=1; i<=10; i++){
+      const inp = document.createElement('input');
+      inp.type='text';
+      inp.id = prefix + (prefix==='D'?'ica':'egra') + i;
+      inp.placeholder = (prefix==='D'?'Dica ':'Regra ') + i;
+      container.appendChild(inp);
     }
+  }
+  gerarCampos('D');
+  gerarCampos('R');
 
-    function atualizarCarta() {
-        const titulo = document.getElementById('titulo').value;
-        const subtitulo = document.getElementById('subtitulo').value;
-        const imagem = document.getElementById('imagem').value;
-        const corFundo = document.getElementById('corFundo').value;
+  function atualizarCarta(prefix){
+    const sufix = prefix==='D' ? 'D' : 'R';
+    const carta = document.getElementById('carta'+sufix);
+    document.getElementById('tituloPreview'+sufix).innerText =
+      document.getElementById('titulo'+sufix).value || 'Nome da Carta';
+    document.getElementById('subtituloPreview'+sufix).innerText =
+      document.getElementById('subtitulo'+sufix).value || 'Descrição da carta aqui.';
+    document.getElementById('imgPreview'+sufix).src =
+      document.getElementById('imagem'+sufix).value || 'https://via.placeholder.com/300x200';
+    carta.style.backgroundColor =
+      document.getElementById('corFundo'+sufix).value;
+    carta.style.color =
+      document.getElementById('corTexto'+sufix).value;
 
-        document.getElementById('tituloPreview').innerText = titulo || "Nome da Carta";
-        document.getElementById('subtituloPreview').innerText = subtitulo || "Descrição da carta aqui.";
-        document.getElementById('imgPreview').src = imagem || "https://via.placeholder.com/300x200";
-        document.getElementById('carta').style.backgroundColor = corFundo;
-
-        const lista = document.getElementById('listaDicasPreview');
-        lista.innerHTML = "";
-
-        for (let i = 1; i <= 10; i++) {
-            const texto = document.getElementById('dica' + i).value;
-            if (texto.trim() !== "") {
-                const li = document.createElement('li');
-                li.textContent = texto;
-                lista.appendChild(li);
-            }
-        }
-
-        if (lista.children.length === 0) {
-            for (let i = 1; i <= 10; i++) {
-                const li = document.createElement('li');
-                li.textContent = `Dica ${i}`;
-                lista.appendChild(li);
-            }
-        }
+    const lista = document.getElementById(
+      prefix==='D' ? 'listaDicasPreviewD' : 'listaRegrasPreviewR'
+    );
+    lista.innerHTML='';
+    for (let i=1;i<=10;i++){
+      const val = document.getElementById(
+        prefix + (prefix==='D'?'ica':'egra') + i
+      ).value.trim();
+      const li = document.createElement('li');
+      li.textContent = val || ((prefix==='D'?'Dica ':'Regra ')+i);
+      lista.appendChild(li);
     }
+  }
 
-    function exportarCarta() {
-        html2canvas(document.getElementById("carta")).then(function(canvas) {
-            let link = document.createElement("a");
-            link.download = "carta-com-dicas.png";
-            link.href = canvas.toDataURL("image/png");
-            link.click();
-        });
-    }
+  function exportarCarta(prefix){
+    const id = prefix==='D' ? 'cartaD' : 'cartaR';
+    html2canvas(document.getElementById(id)).then(canvas=>{
+      const link = document.createElement('a');
+      link.download = (prefix==='D'?'dicas':'regras') + '-carta.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+  }
 </script>
 
 </body>
