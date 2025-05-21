@@ -7,27 +7,90 @@
   <link rel="stylesheet" href="styles.css">
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <style>
-    body { background:#FFD1D1; color:black; font-family:Arial,sans-serif; margin:0; }
-    header, footer { background:#B22222; color:white; text-align:center; padding:15px; }
-    nav ul { list-style:none; padding:0; margin:10px 0; }
-    nav li { display:inline; margin:0 15px; }
-    nav a { color:black; font-weight:bold; text-decoration:none; }
-    nav a:hover { color:#8B0000; }
-    section { text-align:center; padding:20px; }
-    .workspace { display:flex; justify-content:center; flex-wrap:wrap; gap:40px; padding:20px; }
+    body {
+      background-color: #FFD1D1;
+      color: black;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header, footer {
+      background-color: #B22222;
+      color: white;
+      text-align: center;
+      padding: 15px;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0;
+    }
+    nav li {
+      display: inline;
+      margin: 0 15px;
+    }
+    nav a {
+      color: black;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    nav a:hover {
+      color: #8B0000;
+    }
+    section {
+      text-align: center;
+      padding: 20px;
+    }
+    .workspace {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      padding: 20px;
+    }
     .editor, .preview {
-      background:white; border-radius:10px; box-shadow:0 4px 15px rgba(0,0,0,0.1);
-      padding:20px; width:320px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      padding: 20px;
+      width: 320px;
     }
-    .editor label { display:block; margin:8px 0 4px; font-weight:bold; }
-    .editor input, .editor textarea { width:100%; padding:8px; margin-bottom:10px; border:1px solid #bbb; border-radius:6px; }
+    .editor label {
+      display: block;
+      margin: 8px 0 4px;
+      font-weight: bold;
+    }
+    .editor input, .editor textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #bbb;
+      border-radius: 6px;
+      font-size: 14px;
+    }
     .editor button {
-      background:#0078D7; color:white; border:none; padding:10px 16px; border-radius:6px;
-      cursor:pointer; margin-right:6px;
+      background-color: #0078D7;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-right: 8px;
     }
-    .editor button:hover { background:#005fa3; }
-    .preview img { width:100%; height:200px; object-fit:cover; border-radius:8px; margin-bottom:12px; }
-    .preview h2, .preview p { margin:6px 0; text-align:left; }
+    .editor button:hover {
+      background-color: #005fa3;
+    }
+    .preview img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+    .preview h2, .preview p {
+      margin: 6px 0;
+      text-align: left;
+    }
   </style>
 </head>
 <body>
@@ -47,17 +110,18 @@
 </header>
 
 <section>
-  <h2>Criar Carta de Regras</h2>
-  <p>Edite título, descrição, imagem e cores, depois exporte como imagem!</p>
+  <h2>Crie sua Carta de Regras</h2>
+  <p>Edite título, descrição, imagem e cores. Visualize e exporte como imagem.</p>
 </section>
 
 <div class="workspace">
+  <!-- Editor -->
   <div class="editor" id="editorR">
     <h3>Editor de Regras</h3>
     <label for="tituloR">Título</label>
     <input type="text" id="tituloR" placeholder="Nome da Carta">
-    <label for="subtituloR">Regras</label>
-    <textarea id="subtituloR" rows="4" placeholder="Descreva as regras aqui"></textarea>
+    <label for="subtituloR">Descrição / Regras</label>
+    <textarea id="subtituloR" rows="4" placeholder="Escreva as regras da carta aqui..."></textarea>
     <label for="imagemR">URL da Imagem</label>
     <input type="url" id="imagemR" placeholder="https://...">
     <label for="corFundoR">Cor do Fundo</label>
@@ -68,39 +132,40 @@
     <button onclick="exportarCarta('R')">Exportar</button>
   </div>
 
-  <div class="preview" id="cartaR" style="background:#FFD1D1; color:#000">
+  <!-- Preview -->
+  <div class="preview" id="cartaR" style="background-color:#FFD1D1; color:#000000;">
     <img src="https://via.placeholder.com/300x200" id="imgPreviewR" alt="Carta de Regras">
     <h2 id="tituloPreviewR">Nome da Carta</h2>
-    <p id="subtituloPreviewR">Descreva as regras aqui.</p>
+    <p id="subtituloPreviewR">Escreva as regras da carta aqui...</p>
   </div>
 </div>
 
-<footer style="background:#B22222; color:white;">
+<footer style="background-color: #B22222; color: white;">
   <p>&copy; 2025 Jogo de Cartas.</p>
   <p>Hospedado no <a href="https://mmmaria555.github.io/Cardgames/" target="_blank" style="color:white;text-decoration:underline;">GitHub Pages</a></p>
 </footer>
 
 <script>
-  function atualizarCarta(pref){
-    const carta=document.getElementById('carta'+pref),
-          t=document.getElementById('titulo'+pref).value,
-          s=document.getElementById('subtitulo'+pref).value,
-          u=document.getElementById('imagem'+pref).value,
-          bg=document.getElementById('corFundo'+pref).value,
-          fg=document.getElementById('corTexto'+pref).value;
-    document.getElementById('tituloPreview'+pref).innerText = t||'Nome da Carta';
-    document.getElementById('subtituloPreview'+pref).innerText = s||'Descreva as regras aqui.';
-    document.getElementById('imgPreview'+pref).src = u||'https://via.placeholder.com/300x200';
-    carta.style.background = bg;
-    carta.style.color = fg;
+  function atualizarCarta(pref) {
+    const titulo = document.getElementById('titulo' + pref).value || "Nome da Carta";
+    const subtitulo = document.getElementById('subtitulo' + pref).value || "Escreva as regras da carta aqui...";
+    const imagem = document.getElementById('imagem' + pref).value || "https://via.placeholder.com/300x200";
+    const corFundo = document.getElementById('corFundo' + pref).value;
+    const corTexto = document.getElementById('corTexto' + pref).value;
+
+    document.getElementById('tituloPreview' + pref).innerText = titulo;
+    document.getElementById('subtituloPreview' + pref).innerText = subtitulo;
+    document.getElementById('imgPreview' + pref).src = imagem;
+    document.getElementById('carta' + pref).style.backgroundColor = corFundo;
+    document.getElementById('carta' + pref).style.color = corTexto;
   }
 
-  function exportarCarta(pref){
-    html2canvas(document.getElementById('carta'+pref)).then(canvas=>{
-      const a=document.createElement('a');
-      a.download = 'carta-regras.png';
-      a.href = canvas.toDataURL('image/png');
-      a.click();
+  function exportarCarta(pref) {
+    html2canvas(document.getElementById('carta' + pref)).then(canvas => {
+      let link = document.createElement('a');
+      link.download = 'carta-regras.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
     });
   }
 </script>
