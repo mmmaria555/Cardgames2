@@ -62,7 +62,7 @@
     <label for="imagemD">URL da Imagem</label>
     <input type="url" id="imagemD" placeholder="https://...">
     <label for="corFundoD">Cor do Fundo</label>
-    <input type="color" id="corFundoD" value="#FFD1D1">
+    <input type="color" id="corFundoD" value="#D3D3D3"> <!-- alterado para cinza claro -->
     <label for="corTextoD">Cor do Texto</label>
     <input type="color" id="corTextoD" value="#000000">
     <h4>Dicas (1–10)</h4>
@@ -71,7 +71,7 @@
     <button onclick="exportarCarta('D')">Exportar</button>
   </div>
 
-  <div class="preview" id="cartaD" style="background:#FFD1D1; color:#000">
+  <div class="preview" id="cartaD" style="background:#D3D3D3; color:#000000;"> <!-- alterado para cinza claro -->
     <img src="https://via.placeholder.com/300x200" id="imgPreviewD" alt="Carta de Dicas">
     <h2 id="tituloPreviewD">Nome da Carta</h2>
     <p id="subtituloPreviewD">Descrição da carta aqui.</p>
@@ -100,32 +100,32 @@
 
   function atualizarCarta(pref){
     const carta=document.getElementById('carta'+pref);
-    // valores comuns
     const t=document.getElementById('titulo'+pref).value,
           s=document.getElementById('subtitulo'+pref).value,
           u=document.getElementById('imagem'+pref).value,
           bg=document.getElementById('corFundo'+pref).value,
           fg=document.getElementById('corTexto'+pref).value;
-    document.getElementById('tituloPreview'+pref).innerText = t||'Nome da Carta';
-    document.getElementById('subtituloPreview'+pref).innerText = s||'Descrição da carta aqui.';
-    document.getElementById('imgPreview'+pref).src = u||'https://via.placeholder.com/300x200';
+    document.getElementById('tituloPreview'+pref).innerText = t || 'Nome da Carta';
+    document.getElementById('subtituloPreview'+pref).innerText = s || 'Descrição da carta aqui.';
+    document.getElementById('imgPreview'+pref).src = u || 'https://via.placeholder.com/300x200';
     carta.style.background = bg;
     carta.style.color = fg;
-    // lista dicas
+
     const lst=document.getElementById('listaDicasPreviewD');
     lst.innerHTML='';
     for(let i=1;i<=10;i++){
-      const v=document.getElementById('Dica'+i).value.trim()||('Dica '+i),
+      const v=document.getElementById('Dica'+i).value.trim() || ('Dica '+i),
             li=document.createElement('li');
-      li.textContent=v; lst.appendChild(li);
+      li.textContent = v;
+      lst.appendChild(li);
     }
   }
 
   function exportarCarta(pref){
     html2canvas(document.getElementById('carta'+pref)).then(canvas=>{
       const a=document.createElement('a');
-      a.download='carta-dicas.png';
-      a.href=canvas.toDataURL('image/png');
+      a.download = 'carta-dicas.png';
+      a.href = canvas.toDataURL('image/png');
       a.click();
     });
   }
