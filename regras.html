@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Regras - Jogo de Cartas</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <style>
     body {
@@ -96,18 +96,18 @@
 <body>
 
 <header>
-   <h1>Regras</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html">Início</a></li>
-        <li><a href="sobre.html">Sobre</a></li>
-        <li><a href="cartas.html">Cartas</a></li>
-        <li><a href="regras.html">Regras</a></li>
-        <li><a href="inteligencia-artificial.html">IA</a></li>
-        <li><a href="contato.html">Contato</a></li>
-      </ul>
-    </nav>
-  </header>
+  <h1>Regras</h1>
+  <nav>
+    <ul>
+      <li><a href="index.html">Início</a></li>
+      <li><a href="sobre.html">Sobre</a></li>
+      <li><a href="cartas.html">Cartas</a></li>
+      <li><a href="regras.html">Regras</a></li>
+      <li><a href="inteligencia-artificial.html">IA</a></li>
+      <li><a href="contato.html">Contato</a></li>
+    </ul>
+  </nav>
+</header>
 
 <section>
   <h2>Crie sua Carta de Regras</h2>
@@ -119,13 +119,16 @@
   <div class="editor" id="editorR">
     <h3>Editor de Regras</h3>
     <label for="tituloR">Título</label>
-    <input type="text" id="tituloR" placeholder="Nome da Carta">
+    <input type="text" id="tituloR" value="Regras" placeholder="Nome da Carta">
     <label for="subtituloR">Descrição / Regras</label>
-    <textarea id="subtituloR" rows="4" placeholder="Escreva as regras da carta aqui..."></textarea>
+    <textarea id="subtituloR" rows="6">1- um jogador faz a leitura para os demais,
+2- o primeiro à esquerda pede a primeira dica e dá um palpite,
+3- se estiver errado a rodada continua até que as dicas terminem e o leitor soma a pontuação máxima,
+4- jogar de 2 a 6 pessoas;</textarea>
     <label for="imagemR">URL da Imagem</label>
     <input type="url" id="imagemR" placeholder="https://...">
     <label for="corFundoR">Cor do Fundo</label>
-    <input type="color" id="corFundoR" value="#FFD1D1">
+    <input type="color" id="corFundoR" value="#D3D3D3">
     <label for="corTextoR">Cor do Texto</label>
     <input type="color" id="corTextoR" value="#000000">
     <button onclick="atualizarCarta('R')">Atualizar</button>
@@ -133,10 +136,15 @@
   </div>
 
   <!-- Preview -->
-  <div class="preview" id="cartaR" style="background-color:#FFD1D1; color:#000000;">
+  <div class="preview" id="cartaR" style="background-color:#D3D3D3; color:#000000;">
     <img src="https://via.placeholder.com/300x200" id="imgPreviewR" alt="Carta de Regras">
-    <h2 id="tituloPreviewR">Nome da Carta</h2>
-    <p id="subtituloPreviewR">Escreva as regras da carta aqui...</p>
+    <h2 id="tituloPreviewR">Regras</h2>
+    <p id="subtituloPreviewR">
+      1- um jogador faz a leitura para os demais,<br>
+      2- o primeiro à esquerda pede a primeira dica e dá um palpite,<br>
+      3- se estiver errado a rodada continua até que as dicas terminem e o leitor soma a pontuação máxima,<br>
+      4- jogar de 2 a 6 pessoas;
+    </p>
   </div>
 </div>
 
@@ -154,7 +162,7 @@
     const corTexto = document.getElementById('corTexto' + pref).value;
 
     document.getElementById('tituloPreview' + pref).innerText = titulo;
-    document.getElementById('subtituloPreview' + pref).innerText = subtitulo;
+    document.getElementById('subtituloPreview' + pref).innerHTML = subtitulo.replace(/\n/g, "<br>");
     document.getElementById('imgPreview' + pref).src = imagem;
     document.getElementById('carta' + pref).style.backgroundColor = corFundo;
     document.getElementById('carta' + pref).style.color = corTexto;
