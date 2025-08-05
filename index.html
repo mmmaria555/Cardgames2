@@ -1,18 +1,30 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jogo de Cartas</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="Crie, edite e personalize seu próprio jogo de cartas com regras e dicas. Plataforma com editores de cartas e regras integrados." />
+    <link rel="stylesheet" href="styles.css" />
     <style>
+        :root {
+            --vermelho-claro: #FFD1D1;
+            --vermelho-escuro: #B22222;
+            --hover: #8B0000;
+            --radius: 8px;
+        }
+        *{box-sizing:border-box;}
         body {
-            background-color: #FFD1D1; /* Vermelho claro */
+            background-color: var(--vermelho-claro);
             color: black;
             font-family: Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         header, footer {
-            background-color: #B22222; /* Vermelho escuro */
+            background-color: var(--vermelho-escuro);
             color: white;
             padding: 15px;
             text-align: center;
@@ -21,45 +33,150 @@
             list-style: none;
             padding: 0;
             margin: 10px 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
         }
         nav ul li {
             display: inline;
-            margin: 0 15px;
         }
         nav ul li a {
             text-decoration: none;
             color: black;
             font-weight: bold;
+            padding: 6px 12px;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.8);
+            transition: background .2s;
         }
         nav ul li a:hover {
-            color: #8B0000; /* Vermelho mais escuro */
+            color: white;
+            background: var(--hover);
+        }
+        nav ul li a.active {
+            background: white;
+            color: var(--vermelho-escuro);
+            box-shadow: 0 0 8px rgba(0,0,0,0.2);
+        }
+        main {
+            flex: 1;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .hero {
+            max-width: 900px;
+            margin: 0 auto 30px;
+            padding: 20px;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 25px;
+        }
+        .card-link {
+            flex: 1 1 200px;
+            min-width: 220px;
+            background: white;
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: left;
+            position: relative;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .card-link h3 {
+            margin: 0 0 8px;
+        }
+        .card-link p {
+            margin: 0 0 12px;
+            flex: 1;
+        }
+        .btn {
+            display: inline-block;
+            background-color: var(--vermelho-escuro);
+            color: white;
+            padding: 10px 18px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background .2s;
+        }
+        .btn:hover {
+            background-color: var(--hover);
+        }
+        .small {
+            font-size: 0.9rem;
+            color: #333;
+        }
+        @media (max-width: 800px){
+            .actions { flex-direction: column; }
         }
     </style>
 </head>
 <body>
    <header>
         <h1>Jogo de Cartas</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html">Início</a></li>
-        <li><a href="sobre.html">Sobre</a></li>
-        <li><a href="cartas.html">Cartas</a></li>
-        <li><a href="regras.html">Regras</a></li>
-        <li><a href="inteligencia-artificial.html">IA</a></li>
-        <li><a href="contato.html">Contato</a></li>
-      </ul>
-    </nav>
-  </header>
+        <nav>
+          <ul>
+            <li><a href="index.html" class="nav-link">Início</a></li>
+            <li><a href="sobre.html" class="nav-link">Sobre</a></li>
+            <li><a href="cartas.html" class="nav-link">Cartas</a></li>
+            <li><a href="regras.html" class="nav-link">Regras</a></li>
+            <li><a href="inteligencia-artificial.html" class="nav-link">IA</a></li>
+            <li><a href="contato.html" class="nav-link">Contato</a></li>
+          </ul>
+        </nav>
+    </header>
 
-    <section style="padding: 40px; text-align: center;">
-        <h2>Bem-vindo ao Jogo de Cartas!</h2>
-        <p>Explore, crie e compartilhe cartas com dicas no editor de Cartas ou defina as regras no editor de Regras.</p>
-    </section>
+    <main>
+      <div class="hero">
+        <h2>🎴 Bem-vindo ao Jogo de Cartas!</h2>
+        <p>Explore, crie e compartilhe jogos personalizados. Use o editor de cartas para montar suas dicas e o editor de regras para definir como seu jogo funciona.</p>
+        <div class="actions">
+          <div class="card-link">
+            <h3>🃏 Criar Carta</h3>
+            <p>Abra o editor de cartas para montar dicas, imagens e personalizar visualmente seu baralho.</p>
+            <a class="btn" href="cartas.html">Ir para Cartas</a>
+          </div>
+          <div class="card-link">
+            <h3>📜 Definir Regras</h3>
+            <p>Estabeleça a jogabilidade com o editor de regras — você pode adaptar ou inventar novas dinâmicas.</p>
+            <a class="btn" href="regras.html">Ir para Regras</a>
+          </div>
+          <div class="card-link">
+            <h3>🤖 Usar IA</h3>
+            <p>Gere conteúdo inteligente para suas cartas ou receba sugestões de regras automaticamente.</p>
+            <a class="btn" href="inteligencia-artificial.html">Ir para IA</a>
+          </div>
+        </div>
+        <p class="small">Comece em qualquer uma das seções acima — tudo está interligado para você montar seu jogo do jeito que quiser.</p>
+      </div>
+    </main>
 
     <footer>
         <p>&copy; 2025 Jogo de Cartas.</p>
+        <p class="small">Hospedado no <a href="https://mmmaria555.github.io/Cardgames/" target="_blank" style="color: white; text-decoration: underline;">GitHub Pages</a></p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+      // marca o link ativo com base no nome do arquivo atual
+      (function(){
+        const links = document.querySelectorAll('.nav-link');
+        const path = window.location.pathname.split('/').pop().toLowerCase() || 'index.html';
+        links.forEach(a => {
+          if (a.getAttribute('href').toLowerCase() === path) {
+            a.classList.add('active');
+          }
+        });
+      })();
+    </script>
 </body>
 </html>
