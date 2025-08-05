@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Regras - Jogo de Cartas</title>
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
@@ -26,8 +26,8 @@
     header, footer {
       background-color: var(--vermelho-escuro);
       color: white;
-      padding: 15px;
       text-align: center;
+      padding: 15px;
     }
     nav ul {
       list-style: none;
@@ -59,21 +59,13 @@
     main {
       flex: 1;
       padding: 40px 20px;
-    }
-    .hero {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 20px;
-      background: white;
-      border-radius: var(--radius);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      text-align: center;
     }
     .workspace {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 40px;
-      margin-top: 30px;
     }
     .editor, .preview {
       background: white;
@@ -86,6 +78,7 @@
       display: block;
       margin: 8px 0 4px;
       font-weight: bold;
+      text-align: left;
     }
     .editor input, .editor textarea {
       width: 100%;
@@ -106,13 +99,6 @@
     }
     .editor button:hover {
       background-color: #005fa3;
-    }
-    .preview img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-bottom: 12px;
     }
     .preview h2, .preview p {
       margin: 6px 0;
@@ -140,39 +126,39 @@
   </header>
 
   <main>
-    <div class="hero">
+    <section>
       <h2>Crie sua Carta de Regras</h2>
-      <p>Edite título, descrição, imagem e cores. Visualize e exporte como imagem.</p>
-      <div class="workspace">
-        <div class="editor" id="editorR">
-          <h3>Editor de Regras</h3>
-          <label for="tituloR">Título</label>
-          <input type="text" id="tituloR" value="Regras" placeholder="Nome da Carta">
-          <label for="subtituloR">Descrição / Regras</label>
-          <textarea id="subtituloR" rows="6">1- um jogador faz a leitura para os demais,
+      <p>Edite título, descrição e cores. Visualize e exporte como imagem.</p>
+    </section>
+
+    <div class="workspace">
+      <!-- Editor -->
+      <div class="editor" id="editorR">
+        <h3>Editor de Regras</h3>
+        <label for="tituloR">Título</label>
+        <input type="text" id="tituloR" value="Regras" placeholder="Nome da Carta">
+        <label for="subtituloR">Descrição / Regras</label>
+        <textarea id="subtituloR" rows="6">1- um jogador faz a leitura para os demais,
 2- o primeiro à esquerda pede a primeira dica e dá um palpite,
 3- se estiver errado a rodada continua até que as dicas terminem e o leitor soma a pontuação máxima,
 4- jogar de 2 a 6 pessoas;</textarea>
-          <label for="imagemR">URL da Imagem</label>
-          <input type="url" id="imagemR" placeholder="https://...">
-          <label for="corFundoR">Cor do Fundo</label>
-          <input type="color" id="corFundoR" value="#D3D3D3">
-          <label for="corTextoR">Cor do Texto</label>
-          <input type="color" id="corTextoR" value="#000000">
-          <button onclick="atualizarCarta('R')">Atualizar</button>
-          <button onclick="exportarCarta('R')">Exportar</button>
-        </div>
+        <label for="corFundoR">Cor do Fundo</label>
+        <input type="color" id="corFundoR" value="#D3D3D3">
+        <label for="corTextoR">Cor do Texto</label>
+        <input type="color" id="corTextoR" value="#000000">
+        <button onclick="atualizarCarta('R')">Atualizar</button>
+        <button onclick="exportarCarta('R')">Exportar</button>
+      </div>
 
-        <div class="preview" id="cartaR" style="background-color:#D3D3D3; color:#000000;">
-          <img src="https://via.placeholder.com/300x200" id="imgPreviewR" alt="Carta de Regras">
-          <h2 id="tituloPreviewR">Regras</h2>
-          <p id="subtituloPreviewR">
-            1- um jogador faz a leitura para os demais,<br>
-            2- o primeiro à esquerda pede a primeira dica e dá um palpite,<br>
-            3- se estiver errado a rodada continua até que as dicas terminem e o leitor soma a pontuação máxima,<br>
-            4- jogar de 2 a 6 pessoas;
-          </p>
-        </div>
+      <!-- Preview -->
+      <div class="preview" id="cartaR" style="background-color:#D3D3D3; color:#000000;">
+        <h2 id="tituloPreviewR">Regras</h2>
+        <p id="subtituloPreviewR">
+          1- um jogador faz a leitura para os demais,<br>
+          2- o primeiro à esquerda pede a primeira dica e dá um palpite,<br>
+          3- se estiver errado a rodada continua até que as dicas terminem e o leitor soma a pontuação máxima,<br>
+          4- jogar de 2 a 6 pessoas;
+        </p>
       </div>
     </div>
   </main>
@@ -183,26 +169,14 @@
   </footer>
 
   <script>
-    (function(){
-      const links = document.querySelectorAll('.nav-link');
-      const path = window.location.pathname.split('/').pop().toLowerCase() || 'index.html';
-      links.forEach(a => {
-        if (a.getAttribute('href').toLowerCase() === path) {
-          a.classList.add('active');
-        }
-      });
-    })();
-
     function atualizarCarta(pref) {
       const titulo = document.getElementById('titulo' + pref).value || "Nome da Carta";
       const subtitulo = document.getElementById('subtitulo' + pref).value || "Escreva as regras da carta aqui...";
-      const imagem = document.getElementById('imagem' + pref).value || "https://via.placeholder.com/300x200";
       const corFundo = document.getElementById('corFundo' + pref).value;
       const corTexto = document.getElementById('corTexto' + pref).value;
 
       document.getElementById('tituloPreview' + pref).innerText = titulo;
       document.getElementById('subtituloPreview' + pref).innerHTML = subtitulo.replace(/\n/g, "<br>");
-      document.getElementById('imgPreview' + pref).src = imagem;
       document.getElementById('carta' + pref).style.backgroundColor = corFundo;
       document.getElementById('carta' + pref).style.color = corTexto;
     }
@@ -215,6 +189,16 @@
         link.click();
       });
     }
+
+    (function(){
+      const links = document.querySelectorAll('.nav-link');
+      const path = window.location.pathname.split('/').pop().toLowerCase() || 'index.html';
+      links.forEach(a => {
+        if (a.getAttribute('href').toLowerCase() === path) {
+          a.classList.add('active');
+        }
+      });
+    })();
   </script>
 </body>
 </html>
