@@ -1,82 +1,131 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inteligência Artificial - Jogo de Cartas</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            background-color: #FFD1D1; /* Vermelho claro */
-            color: black;
-            font-family: Arial, sans-serif;
-        }
-        header, footer {
-            background-color: #B22222; /* Vermelho escuro */
-            color: white;
-            padding: 15px;
-            text-align: center;
-        }
-        nav ul {
-            list-style: none;
-            padding: 0;
-        }
-        nav ul li {
-            display: inline;
-            margin: 0 15px;
-        }
-        nav ul li a {
-            text-decoration: none;
-            color: black;
-            font-weight: bold;
-        }
-        nav ul li a:hover {
-            color: #8B0000;
-        }
-        section {
-            text-align: center;
-            padding: 20px;
-        }
-        .botao {
-            display: inline-block;
-            background-color: #B22222;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: background-color 0.3s ease;
-        }
-        .botao:hover {
-            background-color: #8B0000;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Inteligência Artificial - Jogo de Cartas</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root {
+      --vermelho-claro: #FFD1D1;
+      --vermelho-escuro: #B22222;
+      --hover: #8B0000;
+      --radius: 8px;
+      --font-family: Arial, sans-serif;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      background-color: var(--vermelho-claro);
+      color: black;
+      font-family: var(--font-family);
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header, footer {
+      background-color: var(--vermelho-escuro);
+      color: white;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0 0 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+      padding: 6px 14px;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.8);
+      transition: background 0.2s ease, color 0.2s ease;
+      display: inline-block;
+    }
+    nav ul li a:hover,
+    nav ul li a.active {
+      background: var(--hover);
+      color: white;
+      box-shadow: 0 0 8px rgba(0,0,0,0.3);
+    }
+    main, section {
+      flex: 1;
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    p {
+      font-size: 1.1rem;
+      line-height: 1.5;
+      margin-bottom: 25px;
+    }
+    .botao {
+      display: inline-block;
+      background-color: var(--vermelho-escuro);
+      color: white;
+      padding: 12px 26px;
+      text-decoration: none;
+      border-radius: var(--radius);
+      font-weight: bold;
+      font-size: 1rem;
+      box-shadow: 0 4px 10px rgba(178,34,34,0.6);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+    }
+    .botao:hover,
+    .botao:focus {
+      background-color: var(--hover);
+      box-shadow: 0 6px 14px rgba(139,0,0,0.9);
+      outline: none;
+    }
+    @media (max-width: 600px) {
+      nav ul {
+        flex-direction: column;
+        gap: 8px;
+      }
+      .botao {
+        width: 100%;
+        padding: 14px 0;
+        font-size: 1.1rem;
+      }
+      main, section {
+        padding: 30px 15px;
+      }
+    }
+  </style>
 </head>
 <body>
-   <header>
-        <h1>Inteligência Artificial</h1>
+  <header>
+    <h1>Inteligência Artificial</h1>
     <nav>
       <ul>
-        <li><a href="index.html">Início</a></li>
-        <li><a href="sobre.html">Sobre</a></li>
-        <li><a href="cartas.html">Cartas</a></li>
-        <li><a href="regras.html">Regras</a></li>
-        <li><a href="inteligencia-artificial.html">IA</a></li>
-        <li><a href="contato.html">Contato</a></li>
+        <li><a href="index.html" class="nav-link">Início</a></li>
+        <li><a href="sobre.html" class="nav-link">Sobre</a></li>
+        <li><a href="cartas.html" class="nav-link">Cartas</a></li>
+        <li><a href="regras.html" class="nav-link">Regras</a></li>
+        <li><a href="inteligencia-artificial.html" class="nav-link active">IA</a></li>
+        <li><a href="contato.html" class="nav-link">Contato</a></li>
       </ul>
     </nav>
   </header>
 
+  <main>
     <section>
-        <h2>Gere suas cartas com Inteligência Artificial</h2>
-        <p> Para te guiar no uso da IA temos um video de auxilio, basta clicar no pop up "pode me dar exemplos para usar esta IA?" e receberá uma mensagem direcionando para o video explicativo<p>
-          <p>Você será redirecionado para nossa ferramenta inteligente, onde poderá criar cartas personalizadas de forma automática!</p>
-        <a href="https://flowise-eevz.onrender.com/chatbot/1d2f3c7f-05f6-47ea-9c8f-38fdca043583" target="_blank" class="botao">
-            Acessar IA de Criação
-        </a>
-    </section>
-
-    <footer>
-        <p>&copy; 2025 Jogo de Cartas.</p>
-    </footer>
-</body>
-</html>
+      <h2>Gere suas cartas com Inteligência Artificial</h2>
+      <p>Para te guiar no uso da IA, temos um vídeo de auxílio. Basta clicar no pop-up "Pode me dar exemplos para usar esta IA?" e receberá uma mensagem direcionando para o vídeo explicativo.</p>
+      <p>Você será redirecionado para nossa ferramenta inteligente, onde poderá criar cartas personalizadas de forma automática!</p>
+      <a href
