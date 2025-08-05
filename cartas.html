@@ -221,21 +221,18 @@
       }
     }
 
-    function exportarCarta(pref){
-      const carta = document.getElementById('carta' + pref);
-      // força altura conforme conteúdo antes de capturar
-      carta.style.height = 'auto';
-      carta.style.minHeight = '0';
-      // leve delay para garantir layout recalculado
-      setTimeout(() => {
-        html2canvas(carta).then(canvas => {
-          const a = document.createElement('a');
-          a.download = 'carta-dicas.png';
-          a.href = canvas.toDataURL('image/png');
-          a.click();
-        });
-      }, 100);
-    }
+     function exportarCarta(pref) {
+    const carta = document.getElementById('carta' + pref);
+    const contentHeight = carta.scrollHeight;
+    carta.style.height = contentHeight + 'px';
+
+    html2canvas(carta, { height: contentHeight }).then(canvas => {
+      let link = document.createElement('a');
+      link.download = 'carta-' + pref.toLowerCase() + '.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+  }
 
     // marca o link ativo
     (function(){
@@ -250,3 +247,4 @@
   </script>
 </body>
 </html>
+
