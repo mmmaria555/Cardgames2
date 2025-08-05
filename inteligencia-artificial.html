@@ -128,4 +128,29 @@
       <h2>Gere suas cartas com Inteligência Artificial</h2>
       <p>Para te guiar no uso da IA, temos um vídeo de auxílio. Basta clicar no pop-up "Pode me dar exemplos para usar esta IA?" e receberá uma mensagem direcionando para o vídeo explicativo.</p>
       <p>Você será redirecionado para nossa ferramenta inteligente, onde poderá criar cartas personalizadas de forma automática!</p>
-      <a href
+      <a href="https://flowise-eevz.onrender.com/chatbot/1d2f3c7f-05f6-47ea-9c8f-38fdca043583" target="_blank" class="botao" rel="noopener noreferrer">
+        Acessar IA de Criação
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Jogo de Cartas.</p>
+  </footer>
+  
+  <script>
+    // Marca link ativo na navegação
+    (function(){
+      const links = document.querySelectorAll('.nav-link');
+      const path = window.location.pathname.split('/').pop().toLowerCase() || 'index.html';
+      links.forEach(a => {
+        if (a.getAttribute('href').toLowerCase() === path) {
+          a.classList.add('active');
+        } else {
+          a.classList.remove('active');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
