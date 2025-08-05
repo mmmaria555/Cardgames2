@@ -1,27 +1,69 @@
-<!-- ...cabeçalho igual ao original... -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cartas - Jogo de Cartas</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <style>
+    body { background-color: #FFD1D1; color: black; font-family: Arial, sans-serif; margin:0; }
+    header, footer { background: #B22222; color: white; text-align:center; padding:15px; }
+    nav ul { list-style:none; padding:0; margin:10px 0; }
+    nav li { display:inline; margin:0 15px; }
+    nav a { color:black; font-weight:bold; text-decoration:none; }
+    nav a:hover { color:#8B0000; }
+    section { text-align:center; padding:20px; }
+    .workspace { display:flex; justify-content:center; flex-wrap:wrap; gap:40px; padding:20px; }
+    .editor, .preview {
+      background:white; border-radius:10px; box-shadow:0 4px 15px rgba(0,0,0,0.1);
+      padding:20px; width:320px; overflow-y:auto;
+    }
+    .editor label { display:block; margin:8px 0 4px; font-weight:bold; }
+    .editor input, .editor textarea { width:100%; padding:8px; margin-bottom:10px; border:1px solid #bbb; border-radius:6px; }
+    .editor button {
+      background:#0078D7; color:white; border:none; padding:10px 16px; border-radius:6px;
+      cursor:pointer; margin-right:6px;
+    }
+    .editor button:hover { background:#005fa3; }
+    .preview h2, .preview p, .preview ul { margin:6px 0; text-align:left; }
+    .preview ul { padding-left:20px; list-style-type:decimal; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Cartas</h1>
+  <nav>
+    <ul>
+      <li><a href="index.html">Início</a></li>
+      <li><a href="sobre.html">Sobre</a></li>
+      <li><a href="cartas.html">Cartas</a></li>
+      <li><a href="regras.html">Regras</a></li>
+      <li><a href="inteligencia-artificial.html">IA</a></li>
+      <li><a href="contato.html">Contato</a></li>
+    </ul>
+  </nav>
+</header>
+
 <section>
   <h2>Criar Carta de Dicas</h2>
-  <p>Edite título, descrição, cores e lista de 10 dicas, depois exporte!</p>
+  <p>Edite título, descrição, cores e a lista de 10 dicas. Depois, clique em exportar para baixar sua carta como imagem.</p>
 </section>
 
 <div class="workspace">
   <div class="editor" id="editorD">
     <h3>Editor de Dicas</h3>
     <label for="tituloD">Título</label>
-    <input type="text" id="tituloD" placeholder="Nome da Carta">
-    
+    <input type="text" id="tituloD" placeholder="Nome da Carta" />
     <label for="subtituloD">Descrição</label>
     <textarea id="subtituloD" rows="2" placeholder="Subtítulo"></textarea>
-
     <label for="corFundoD">Cor do Fundo</label>
-    <input type="color" id="corFundoD" value="#D3D3D3">
-
+    <input type="color" id="corFundoD" value="#D3D3D3" />
     <label for="corTextoD">Cor do Texto</label>
-    <input type="color" id="corTextoD" value="#000000">
-
+    <input type="color" id="corTextoD" value="#000000" />
     <h4>Dicas (1–10)</h4>
     <div id="dicasCamposD"></div>
-
     <button onclick="atualizarCarta('D')">Atualizar</button>
     <button onclick="exportarCarta('D')">Exportar</button>
   </div>
@@ -42,12 +84,13 @@
 </footer>
 
 <script>
+  // gera 10 campos de dica
   (function(){
     const c = document.getElementById('dicasCamposD');
-    for(let i = 1; i <= 10; i++){
+    for (let i = 1; i <= 10; i++) {
       const inp = document.createElement('input');
-      inp.type = 'text'; 
-      inp.id = 'Dica' + i; 
+      inp.type = 'text';
+      inp.id = 'Dica' + i;
       inp.placeholder = 'Dica ' + i;
       c.appendChild(inp);
     }
@@ -67,9 +110,9 @@
 
     const lst = document.getElementById('listaDicasPreviewD');
     lst.innerHTML = '';
-    for(let i = 1; i <= 10; i++){
-      const v = document.getElementById('Dica' + i).value.trim() || ('Dica ' + i);
-      const li = document.createElement('li');
+    for (let i = 1; i <= 10; i++) {
+      const v = document.getElementById('Dica' + i).value.trim() || ('Dica ' + i),
+            li = document.createElement('li');
       li.textContent = v;
       lst.appendChild(li);
     }
@@ -81,9 +124,9 @@
       a.download = 'carta-dicas.png';
       a.href = canvas.toDataURL('image/png');
       a.click();
-    }).catch(err => {
-      console.error('Erro ao exportar carta:', err);
-      alert('Ocorreu um erro ao exportar a carta.');
     });
   }
 </script>
+
+</body>
+</html>
