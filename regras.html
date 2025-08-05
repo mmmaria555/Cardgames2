@@ -2,55 +2,82 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Regras - Jogo de Cartas</title>
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <style>
+    :root {
+      --vermelho-claro: #FFD1D1;
+      --vermelho-escuro: #B22222;
+      --hover: #8B0000;
+      --radius: 8px;
+    }
+    * { box-sizing: border-box; }
     body {
-      background-color: #FFD1D1;
+      background-color: var(--vermelho-claro);
       color: black;
       font-family: Arial, sans-serif;
       margin: 0;
-      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
     header, footer {
-      background-color: #B22222;
+      background-color: var(--vermelho-escuro);
       color: white;
-      text-align: center;
       padding: 15px;
+      text-align: center;
     }
     nav ul {
       list-style: none;
       padding: 0;
       margin: 10px 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
     }
-    nav li {
-      display: inline;
-      margin: 0 15px;
-    }
-    nav a {
+    nav ul li a {
+      text-decoration: none;
       color: black;
       font-weight: bold;
-      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.8);
+      transition: background .2s;
     }
-    nav a:hover {
-      color: #8B0000;
+    nav ul li a:hover {
+      color: white;
+      background: var(--hover);
     }
-    section {
-      text-align: center;
+    nav ul li a.active {
+      background: white;
+      color: var(--vermelho-escuro);
+      box-shadow: 0 0 8px rgba(0,0,0,0.2);
+    }
+    main {
+      flex: 1;
+      padding: 40px 20px;
+    }
+    .hero {
+      max-width: 1000px;
+      margin: 0 auto;
       padding: 20px;
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
     }
     .workspace {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 40px;
-      padding: 20px;
+      margin-top: 30px;
     }
     .editor, .preview {
       background: white;
-      border-radius: 10px;
+      border-radius: var(--radius);
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
       padding: 20px;
       width: 320px;
@@ -91,92 +118,103 @@
       margin: 6px 0;
       text-align: left;
     }
+    .small {
+      font-size: 0.9rem;
+      color: #ccc;
+    }
   </style>
 </head>
 <body>
+  <header>
+    <h1>Jogo de Cartas</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html" class="nav-link">Início</a></li>
+        <li><a href="sobre.html" class="nav-link">Sobre</a></li>
+        <li><a href="cartas.html" class="nav-link">Cartas</a></li>
+        <li><a href="regras.html" class="nav-link">Regras</a></li>
+        <li><a href="inteligencia-artificial.html" class="nav-link">IA</a></li>
+        <li><a href="contato.html" class="nav-link">Contato</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<header>
-  <h1>Regras</h1>
-  <nav>
-    <ul>
-      <li><a href="index.html">Início</a></li>
-      <li><a href="sobre.html">Sobre</a></li>
-      <li><a href="cartas.html">Cartas</a></li>
-      <li><a href="regras.html">Regras</a></li>
-      <li><a href="inteligencia-artificial.html">IA</a></li>
-      <li><a href="contato.html">Contato</a></li>
-    </ul>
-  </nav>
-</header>
-
-<section>
-  <h2>Crie sua Carta de Regras</h2>
-  <p>Edite título, descrição, imagem e cores. Visualize e exporte como imagem.</p>
-</section>
-
-<div class="workspace">
-  <!-- Editor -->
-  <div class="editor" id="editorR">
-    <h3>Editor de Regras</h3>
-    <label for="tituloR">Título</label>
-    <input type="text" id="tituloR" value="Regras" placeholder="Nome da Carta">
-    <label for="subtituloR">Descrição / Regras</label>
-    <textarea id="subtituloR" rows="6">1- um jogador faz a leitura para os demais,
+  <main>
+    <div class="hero">
+      <h2>Crie sua Carta de Regras</h2>
+      <p>Edite título, descrição, imagem e cores. Visualize e exporte como imagem.</p>
+      <div class="workspace">
+        <div class="editor" id="editorR">
+          <h3>Editor de Regras</h3>
+          <label for="tituloR">Título</label>
+          <input type="text" id="tituloR" value="Regras" placeholder="Nome da Carta">
+          <label for="subtituloR">Descrição / Regras</label>
+          <textarea id="subtituloR" rows="6">1- um jogador faz a leitura para os demais,
 2- o primeiro à esquerda pede a primeira dica e dá um palpite,
 3- se estiver errado a rodada continua até que as dicas terminem e o leitor soma a pontuação máxima,
 4- jogar de 2 a 6 pessoas;</textarea>
-    <label for="imagemR">URL da Imagem</label>
-    <input type="url" id="imagemR" placeholder="https://...">
-    <label for="corFundoR">Cor do Fundo</label>
-    <input type="color" id="corFundoR" value="#D3D3D3">
-    <label for="corTextoR">Cor do Texto</label>
-    <input type="color" id="corTextoR" value="#000000">
-    <button onclick="atualizarCarta('R')">Atualizar</button>
-    <button onclick="exportarCarta('R')">Exportar</button>
-  </div>
+          <label for="imagemR">URL da Imagem</label>
+          <input type="url" id="imagemR" placeholder="https://...">
+          <label for="corFundoR">Cor do Fundo</label>
+          <input type="color" id="corFundoR" value="#D3D3D3">
+          <label for="corTextoR">Cor do Texto</label>
+          <input type="color" id="corTextoR" value="#000000">
+          <button onclick="atualizarCarta('R')">Atualizar</button>
+          <button onclick="exportarCarta('R')">Exportar</button>
+        </div>
 
-  <!-- Preview -->
-  <div class="preview" id="cartaR" style="background-color:#D3D3D3; color:#000000;">
-    <img src="https://via.placeholder.com/300x200" id="imgPreviewR" alt="Carta de Regras">
-    <h2 id="tituloPreviewR">Regras</h2>
-    <p id="subtituloPreviewR">
-      1- um jogador faz a leitura para os demais,<br>
-      2- o primeiro à esquerda pede a primeira dica e dá um palpite,<br>
-      3- se estiver errado a rodada continua até que as dicas terminem e o leitor soma a pontuação máxima,<br>
-      4- jogar de 2 a 6 pessoas;
-    </p>
-  </div>
-</div>
+        <div class="preview" id="cartaR" style="background-color:#D3D3D3; color:#000000;">
+          <img src="https://via.placeholder.com/300x200" id="imgPreviewR" alt="Carta de Regras">
+          <h2 id="tituloPreviewR">Regras</h2>
+          <p id="subtituloPreviewR">
+            1- um jogador faz a leitura para os demais,<br>
+            2- o primeiro à esquerda pede a primeira dica e dá um palpite,<br>
+            3- se estiver errado a rodada continua até que as dicas terminem e o leitor soma a pontuação máxima,<br>
+            4- jogar de 2 a 6 pessoas;
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
 
-<footer style="background-color: #B22222; color: white;">
-  <p>&copy; 2025 Jogo de Cartas.</p>
-  <p>Hospedado no <a href="https://mmmaria555.github.io/Cardgames/" target="_blank" style="color:white;text-decoration:underline;">GitHub Pages</a></p>
-</footer>
+  <footer>
+    <p>&copy; 2025 Jogo de Cartas.</p>
+    <p class="small">Hospedado no <a href="https://mmmaria555.github.io/Cardgames/" target="_blank" style="color:white; text-decoration:underline;">GitHub Pages</a></p>
+  </footer>
 
-<script>
-  function atualizarCarta(pref) {
-    const titulo = document.getElementById('titulo' + pref).value || "Nome da Carta";
-    const subtitulo = document.getElementById('subtitulo' + pref).value || "Escreva as regras da carta aqui...";
-    const imagem = document.getElementById('imagem' + pref).value || "https://via.placeholder.com/300x200";
-    const corFundo = document.getElementById('corFundo' + pref).value;
-    const corTexto = document.getElementById('corTexto' + pref).value;
+  <script>
+    (function(){
+      const links = document.querySelectorAll('.nav-link');
+      const path = window.location.pathname.split('/').pop().toLowerCase() || 'index.html';
+      links.forEach(a => {
+        if (a.getAttribute('href').toLowerCase() === path) {
+          a.classList.add('active');
+        }
+      });
+    })();
 
-    document.getElementById('tituloPreview' + pref).innerText = titulo;
-    document.getElementById('subtituloPreview' + pref).innerHTML = subtitulo.replace(/\n/g, "<br>");
-    document.getElementById('imgPreview' + pref).src = imagem;
-    document.getElementById('carta' + pref).style.backgroundColor = corFundo;
-    document.getElementById('carta' + pref).style.color = corTexto;
-  }
+    function atualizarCarta(pref) {
+      const titulo = document.getElementById('titulo' + pref).value || "Nome da Carta";
+      const subtitulo = document.getElementById('subtitulo' + pref).value || "Escreva as regras da carta aqui...";
+      const imagem = document.getElementById('imagem' + pref).value || "https://via.placeholder.com/300x200";
+      const corFundo = document.getElementById('corFundo' + pref).value;
+      const corTexto = document.getElementById('corTexto' + pref).value;
 
-  function exportarCarta(pref) {
-    html2canvas(document.getElementById('carta' + pref)).then(canvas => {
-      let link = document.createElement('a');
-      link.download = 'carta-regras.png';
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-    });
-  }
-</script>
+      document.getElementById('tituloPreview' + pref).innerText = titulo;
+      document.getElementById('subtituloPreview' + pref).innerHTML = subtitulo.replace(/\n/g, "<br>");
+      document.getElementById('imgPreview' + pref).src = imagem;
+      document.getElementById('carta' + pref).style.backgroundColor = corFundo;
+      document.getElementById('carta' + pref).style.color = corTexto;
+    }
 
+    function exportarCarta(pref) {
+      html2canvas(document.getElementById('carta' + pref)).then(canvas => {
+        let link = document.createElement('a');
+        link.download = 'carta-regras.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      });
+    }
+  </script>
 </body>
 </html>
