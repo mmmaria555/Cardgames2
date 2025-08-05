@@ -95,4 +95,158 @@
       width: 100%;
       padding: 8px;
       margin-bottom: 10px;
-      bo
+      border: 1px solid #bbb;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    .editor button {
+      background-color: var(--vermelho-escuro);
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-right: 6px;
+      font-weight: bold;
+      transition: background .2s;
+    }
+    .editor button:hover {
+      background: var(--hover);
+    }
+    .preview h2, .preview p, .preview ul {
+      margin: 6px 0;
+      text-align: left;
+    }
+    .preview ul {
+      padding-left: 20px;
+      list-style-type: decimal;
+    }
+    .small {
+      font-size: 0.85rem;
+      color: #444;
+    }
+    @media (max-width: 800px){
+      .workspace { flex-direction: column; align-items:center; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Cartas</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html" class="nav-link">Início</a></li>
+        <li><a href="sobre.html" class="nav-link">Sobre</a></li>
+        <li><a href="cartas.html" class="nav-link active">Cartas</a></li>
+        <li><a href="regras.html" class="nav-link">Regras</a></li>
+        <li><a href="inteligencia-artificial.html" class="nav-link">IA</a></li>
+        <li><a href="contato.html" class="nav-link">Contato</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="hero">
+      <h2>🎴 Criar Carta de Dicas</h2>
+      <p>Edite título, descrição, cores e a lista de 10 dicas. Depois, clique em exportar para baixar sua carta como imagem.</p>
+    </div>
+
+    <div class="workspace">
+      <div class="editor" id="editorD">
+        <h3>Editor de Dicas</h3>
+        <label for="tituloD">Título</label>
+        <input type="text" id="tituloD" placeholder="Nome da Carta" />
+        <label for="subtituloD">Descrição</label>
+        <textarea id="subtituloD" rows="2" placeholder="Subtítulo"></textarea>
+        <label for="corFundoD">Cor do Fundo</label>
+        <input type="color" id="corFundoD" value="#D3D3D3" />
+        <label for="corTextoD">Cor do Texto</label>
+        <input type="color" id="corTextoD" value="#000000" />
+        <h4>Dicas (1–10)</h4>
+        <div id="dicasCamposD"></div>
+        <button onclick="atualizarCarta('D')">Atualizar</button>
+        <button onclick="exportarCarta('D')">Exportar</button>
+      </div>
+
+      <div class="preview" id="cartaD" style="background:#D3D3D3; color:#000000;">
+        <h2 id="tituloPreviewD">Nome da Carta</h2>
+        <p id="subtituloPreviewD">Descrição da carta aqui.</p>
+        <ul id="listaDicasPreviewD">
+          <li>Dica 1</li><li>Dica 2</li><li>Dica 3</li><li>Dica 4</li><li>Dica 5</li>
+          <li>Dica 6</li><li>Dica 7</li><li>Dica 8</li><li>Dica 9</li><li>Dica 10</li>
+        </ul>
+      </div>
+    </div>
+    <p class="small">Você pode adaptar as dicas e cores antes de exportar. A altura da carta se ajusta ao conteúdo durante a exportação.</p>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Jogo de Cartas.</p>
+    <p class="small">Hospedado no <a href="https://mmmaria555.github.io/Cardgames/" target="_blank" style="color:white; text-decoration:underline;">GitHub Pages</a></p>
+  </footer>
+
+  <script>
+    // gera 10 campos de dica
+    (function(){
+      const c = document.getElementById('dicasCamposD');
+      for (let i = 1; i <= 10; i++) {
+        const inp = document.createElement('input');
+        inp.type = 'text';
+        inp.id = 'Dica' + i;
+        inp.placeholder = 'Dica ' + i;
+        c.appendChild(inp);
+      }
+    })();
+
+    function atualizarCarta(pref){
+      const carta = document.getElementById('carta' + pref);
+      const t = document.getElementById('titulo' + pref).value,
+            s = document.getElementById('subtitulo' + pref).value,
+            bg = document.getElementById('corFundo' + pref).value,
+            fg = document.getElementById('corTexto' + pref).value;
+
+      document.getElementById('tituloPreview' + pref).innerText = t || 'Nome da Carta';
+      document.getElementById('subtituloPreview' + pref).innerText = s || 'Descrição da carta aqui.';
+      carta.style.background = bg;
+      carta.style.color = fg;
+
+      const lst = document.getElementById('listaDicasPreviewD');
+      lst.innerHTML = '';
+      for (let i = 1; i <= 10; i++) {
+        const v = document.getElementById('Dica' + i).value.trim() || ('Dica ' + i);
+        const li = document.createElement('li');
+        li.textContent = v;
+        lst.appendChild(li);
+      }
+    }
+
+    function exportarCarta(pref){
+      const carta = document.getElementById('carta' + pref);
+      // força altura conforme conteúdo antes de capturar
+      carta.style.height = 'auto';
+      carta.style.minHeight = '0';
+      // leve delay para garantir layout recalculado
+      setTimeout(() => {
+        html2canvas(carta).then(canvas => {
+          const a = document.createElement('a');
+          a.download = 'carta-dicas.png';
+          a.href = canvas.toDataURL('image/png');
+          a.click();
+        });
+      }, 100);
+    }
+
+    // marca o link ativo
+    (function(){
+      const links = document.querySelectorAll('.nav-link');
+      const path = window.location.pathname.split('/').pop().toLowerCase() || 'cartas.html';
+      links.forEach(a => {
+        if (a.getAttribute('href').toLowerCase() === path) {
+          a.classList.add('active');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
