@@ -1,70 +1,141 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sobre - Jogo de Cartas</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            background-color: #FFD1D1;
-            color: black;
-            font-family: Arial, sans-serif;
-        }
-        header, footer {
-            background-color: #B22222;
-            color: white;
-            padding: 15px;
-            text-align: center;
-        }
-        nav ul {
-            list-style: none;
-            padding: 0;
-        }
-        nav ul li {
-            display: inline;
-            margin: 0 15px;
-        }
-        nav ul li a {
-            text-decoration: none;
-            color: black;
-            font-weight: bold;
-        }
-        nav ul li a:hover {
-            color: #8B0000;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sobre - Jogo de Cartas</title>
+  <meta name="description" content="Roteiro de início para novo usuário do Jogo de Cartas: como usar IA, cartas, regras e enviar feedback." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root {
+      --vermelho-claro: #FFD1D1;
+      --vermelho-escuro: #B22222;
+      --hover: #8B0000;
+      --radius: 8px;
+    }
+    *{box-sizing:border-box;}
+    body {
+      background-color: var(--vermelho-claro);
+      color: black;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header, footer {
+      background-color: var(--vermelho-escuro);
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+    nav ul li { display:inline; }
+    nav ul li a {
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+      padding: 6px 12px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.8);
+      transition: background .2s;
+    }
+    nav ul li a:hover { color: white; background: var(--hover); }
+    nav ul li a.active {
+      background: white;
+      color: var(--vermelho-escuro);
+      box-shadow: 0 0 8px rgba(0,0,0,0.2);
+    }
+    main {
+      flex:1;
+      padding: 40px 20px;
+    }
+    .hero {
+      max-width: 900px;
+      margin: 0 auto 30px;
+      padding: 20px;
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+    ol {
+      text-align: left;
+      padding-left: 1.2em;
+      margin-top: 10px;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+    .small {
+      font-size: 0.9rem;
+      color: #333;
+    }
+    a {
+      font-weight: bold;
+      color: var(--vermelho-escuro);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    @media (max-width: 800px){
+      .hero { padding: 15px; }
+    }
+  </style>
 </head>
 <body>
   <header>
-       <h1>Sobre</h1>
+    <h1>Sobre</h1>
     <nav>
       <ul>
-        <li><a href="index.html">Início</a></li>
-        <li><a href="sobre.html">Sobre</a></li>
-        <li><a href="cartas.html">Cartas</a></li>
-        <li><a href="regras.html">Regras</a></li>
-        <li><a href="inteligencia-artificial.html">IA</a></li>
-        <li><a href="contato.html">Contato</a></li>
+        <li><a href="index.html" class="nav-link">Início</a></li>
+        <li><a href="sobre.html" class="nav-link">Sobre</a></li>
+        <li><a href="cartas.html" class="nav-link">Cartas</a></li>
+        <li><a href="regras.html" class="nav-link">Regras</a></li>
+        <li><a href="inteligencia-artificial.html" class="nav-link">IA</a></li>
+        <li><a href="contato.html" class="nav-link">Contato</a></li>
       </ul>
     </nav>
   </header>
 
-  <section>
-    <h2>Sobre o Site</h2>
-    <p>❓ <strong>Não sabe por onde começar?</strong></p>
-    <p>Aqui vai um roteiro para você, novo usuário:</p>
-    <ol>
+  <main>
+    <div class="hero">
+      <h2>📘 Sobre o Site</h2>
+      <p>❓ <strong>Não sabe por onde começar?</strong></p>
+      <p>Aqui vai um roteiro para você, novo usuário:</p>
+      <ol>
         <li>🤖 Acesse a aba <strong>"IA"</strong> para se familiarizar com a inteligência artificial nativa do nosso site.</li>
         <li>🃏 Você pode acessar as abas <strong>"Cartas"</strong> ou <strong>"Regras"</strong>, o que preferir para iniciar a produção do seu jogo. Nessas abas você encontrará um editor intuitivo onde poderá adicionar o conteúdo que quiser e fazer download da sua carta no formato PNG.</li>
         <li>📩 Caso tenha alguma dúvida em relação à utilização do site, entre em contato com os desenvolvedores na aba <strong>"Contato"</strong>. Além disso, após usar nosso site e aplicar seu jogo, solicitamos que responda o formulário anexado na mesma aba.</li>
         <li>📜 Acessando a aba <strong>"Regras"</strong> você terá acesso a uma carta com uma sugestão de regra para seu jogo. Mas a jogabilidade fica a seu critério, podendo inventar novas formas de aplicação que se adequem melhor aos seus objetivos.</li>
-    </ol>
-  </section>
+      </ol>
+    </div>
+  </main>
 
-  <footer style="background-color: #B22222; color: white;">
+  <footer>
     <p>&copy; 2025 Jogo de Cartas.</p>
-    <p>Hospedado no <a href="https://mmmaria555.github.io/Cardgames/" target="_blank" style="color: white; text-decoration: underline;">GitHub Pages</a></p>
+    <p class="small">Hospedado no <a href="https://mmmaria555.github.io/Cardgames/" target="_blank" style="color: white; text-decoration: underline;">GitHub Pages</a></p>
   </footer>
+
+  <script>
+    // marca a aba ativa
+    (function(){
+      const links = document.querySelectorAll('.nav-link');
+      const path = window.location.pathname.split('/').pop().toLowerCase() || 'sobre.html';
+      links.forEach(a => {
+        if (a.getAttribute('href').toLowerCase() === path) {
+          a.classList.add('active');
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
