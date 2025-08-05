@@ -1,92 +1,3 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cartas - Jogo de Cartas</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-  <style>
-    body { background-color: #FFD1D1; color: black; font-family: Arial, sans-serif; margin:0; }
-    header, footer { background: #B22222; color: white; text-align:center; padding:15px; }
-    nav ul { list-style:none; padding:0; margin:10px 0; }
-    nav li { display:inline; margin:0 15px; }
-    nav a { color:black; font-weight:bold; text-decoration:none; }
-    nav a:hover { color:#8B0000; }
-    section { text-align:center; padding:20px; }
-    .workspace { display:flex; justify-content:center; flex-wrap:wrap; gap:40px; padding:20px; }
-    .editor, .preview {
-      background:white; border-radius:10px; box-shadow:0 4px 15px rgba(0,0,0,0.1);
-      padding:20px; width:320px; overflow-y:auto;
-    }
-    .editor label { display:block; margin:8px 0 4px; font-weight:bold; }
-    .editor input, .editor textarea { width:100%; padding:8px; margin-bottom:10px; border:1px solid #bbb; border-radius:6px; }
-    .editor button {
-      background:#0078D7; color:white; border:none; padding:10px 16px; border-radius:6px;
-      cursor:pointer; margin-right:6px;
-    }
-    .editor button:hover { background:#005fa3; }
-    .preview img { width:100%; height:200px; object-fit:cover; border-radius:8px; margin-bottom:12px; }
-    .preview h2, .preview p, .preview ul { margin:6px 0; text-align:left; }
-    .preview ul { padding-left:20px; list-style-type:decimal; }
-  </style>
-</head>
-<body>
-
-<header>
-  <h1>Cartas</h1>
-  <nav>
-    <ul>
-      <li><a href="index.html">Início</a></li>
-      <li><a href="sobre.html">Sobre</a></li>
-      <li><a href="cartas.html">Cartas</a></li>
-      <li><a href="regras.html">Regras</a></li>
-      <li><a href="inteligencia-artificial.html">IA</a></li>
-      <li><a href="contato.html">Contato</a></li>
-    </ul>
-  </nav>
-</header>
-
-<section>
-  <h2>Criar Carta de Dicas</h2>
-  <p>Edite título, descrição, imagem, cores e lista de 10 dicas, depois exporte!</p>
-</section>
-
-<div class="workspace">
-  <div class="editor" id="editorD">
-    <h3>Editor de Dicas</h3>
-    <label for="tituloD">Título</label>
-    <input type="text" id="tituloD" placeholder="Nome da Carta">
-    <label for="subtituloD">Descrição</label>
-    <textarea id="subtituloD" rows="2" placeholder="Subtítulo"></textarea>
-    <label for="imagemD">URL da Imagem</label>
-    <input type="url" id="imagemD" placeholder="https://...">
-    <label for="corFundoD">Cor do Fundo</label>
-    <input type="color" id="corFundoD" value="#D3D3D3"> <!-- alterado para cinza claro -->
-    <label for="corTextoD">Cor do Texto</label>
-    <input type="color" id="corTextoD" value="#000000">
-    <h4>Dicas (1–10)</h4>
-    <div id="dicasCamposD"></div>
-    <button onclick="atualizarCarta('D')">Atualizar</button>
-    <button onclick="exportarCarta('D')">Exportar</button>
-  </div>
-
-  <div class="preview" id="cartaD" style="background:#D3D3D3; color:#000000;"> <!-- alterado para cinza claro -->
-    <img src="https://via.placeholder.com/300x200" id="imgPreviewD" alt="Carta de Dicas">
-    <h2 id="tituloPreviewD">Nome da Carta</h2>
-    <p id="subtituloPreviewD">Descrição da carta aqui.</p>
-    <ul id="listaDicasPreviewD">
-      <li>Dica 1</li><li>Dica 2</li><li>Dica 3</li><li>Dica 4</li><li>Dica 5</li>
-      <li>Dica 6</li><li>Dica 7</li><li>Dica 8</li><li>Dica 9</li><li>Dica 10</li>
-    </ul>
-  </div>
-</div>
-
-<footer style="background:#B22222; color:white;">
-  <p>&copy; 2025 Jogo de Cartas.</p>
-  <p>Hospedado no <a href="https://mmmaria555.github.io/Cardgames/" target="_blank" style="color:white; text-decoration:underline;">GitHub Pages</a></p>
-</footer>
-
 <script>
   // gera 10 campos de dica
   (function(){
@@ -98,24 +9,52 @@
     }
   })();
 
-  function atualizarCarta(pref){
+  // busca imagem externa e converte em data URL (para evitar problemas de CORS no html2canvas)
+  async function fetchImageAsDataURL(url) {
+    try {
+      const res = await fetch(url, { mode: 'cors' });
+      if (!res.ok) throw new Error('Falha ao carregar imagem');
+      const blob = await res.blob();
+      return await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.onerror = () => reject('Erro ao converter imagem');
+        reader.readAsDataURL(blob);
+      });
+    } catch (e) {
+      console.warn('Não foi possível converter a imagem, usando placeholder:', e);
+      return 'https://via.placeholder.com/300x200';
+    }
+  }
+
+  async function atualizarCarta(pref){
     const carta=document.getElementById('carta'+pref);
     const t=document.getElementById('titulo'+pref).value,
           s=document.getElementById('subtitulo'+pref).value,
           u=document.getElementById('imagem'+pref).value,
           bg=document.getElementById('corFundo'+pref).value,
           fg=document.getElementById('corTexto'+pref).value;
+
     document.getElementById('tituloPreview'+pref).innerText = t || 'Nome da Carta';
     document.getElementById('subtituloPreview'+pref).innerText = s || 'Descrição da carta aqui.';
-    document.getElementById('imgPreview'+pref).src = u || 'https://via.placeholder.com/300x200';
     carta.style.background = bg;
     carta.style.color = fg;
 
-    const lst=document.getElementById('listaDicasPreviewD');
+    // processa a imagem (converte para data URL para evitar taint)
+    const imgEl = document.getElementById('imgPreview'+pref);
+    if (u && u.trim() !== '') {
+      const dataUrl = await fetchImageAsDataURL(u.trim());
+      imgEl.src = dataUrl;
+    } else {
+      imgEl.src = 'https://via.placeholder.com/300x200';
+    }
+
+    // atualiza lista de dicas (fixo para 'D' no id de lista atual)
+    const lst = document.getElementById('listaDicasPreviewD');
     lst.innerHTML='';
     for(let i=1;i<=10;i++){
-      const v=document.getElementById('Dica'+i).value.trim() || ('Dica '+i),
-            li=document.createElement('li');
+      const v=document.getElementById('Dica'+i).value.trim() || ('Dica '+i);
+      const li=document.createElement('li');
       li.textContent = v;
       lst.appendChild(li);
     }
@@ -127,9 +66,9 @@
       a.download = 'carta-dicas.png';
       a.href = canvas.toDataURL('image/png');
       a.click();
+    }).catch(err => {
+      console.error('Erro ao exportar carta:', err);
+      alert('Ocorreu um erro ao exportar a carta. Tente novamente.');
     });
   }
 </script>
-
-</body>
-</html>
