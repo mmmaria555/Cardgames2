@@ -2,134 +2,216 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Cartas - Jogo de Cartas</title>
-  <meta name="description" content="Crie cartas de dicas personalizadas com este editor." />
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <style>
-    :root { --vermelho-claro: #FFD1D1; --vermelho-escuro: #B22222; --hover: #8B0000; --radius: 8px; }
-    *{box-sizing:border-box;}
-    body { background-color: var(--vermelho-claro); color: black; font-family: Arial, sans-serif; margin:0; min-height:100vh; display:flex; flex-direction:column; }
-    header, footer { background-color: var(--vermelho-escuro); color: white; padding:15px; text-align:center; }
-    nav ul { list-style:none; padding:0; margin:10px 0; display:flex; flex-wrap:wrap; justify-content:center; gap:10px; }
-    nav ul li { display:inline; }
-    nav ul li a { text-decoration:none; color:black; font-weight:bold; padding:6px 12px; border-radius:6px; background: rgba(255,255,255,0.8); transition: background .2s; }
-    nav ul li a:hover { color: white; background: var(--hover); }
-    nav ul li a.active { background: white; color: var(--vermelho-escuro); box-shadow: 0 0 8px rgba(0,0,0,0.2); }
-    main { flex:1; padding:30px 20px; }
-    .hero { max-width: 900px; margin:0 auto 30px; padding:20px; background:white; border-radius:var(--radius); box-shadow:0 6px 20px rgba(0,0,0,0.08); text-align:center; }
-    .workspace { display:flex; justify-content:center; flex-wrap:wrap; gap:40px; padding:20px; }
-    .editor, .preview { background:white; border-radius:10px; box-shadow:0 4px 15px rgba(0,0,0,0.1); padding:20px; width:320px; overflow-y:auto; }
-    .editor label { display:block; margin:8px 0 4px; font-weight:bold; }
-    .editor input, .editor textarea { width:100%; padding:8px; margin-bottom:10px; border:1px solid #bbb; border-radius:6px; }
-    .editor button { background: var(--vermelho-escuro); color:white; border:none; padding:10px 16px; border-radius:6px; cursor:pointer; margin-right:6px; font-weight:bold; }
-    .editor button:hover { background: var(--hover); }
-    .preview h2, .preview p, .preview ul { margin:6px 0; text-align:left; }
-    .preview ul { padding-left:20px; list-style-type:decimal; }
-    .btn-small { display:inline-block; background:#fff; color: var(--vermelho-escuro); padding:6px 12px; border-radius:6px; text-decoration:none; font-size:0.8rem; }
-    @media (max-width: 900px){ .workspace { flex-direction:column; align-items:center; } }
+    :root {
+      --vermelho-claro: #FFD1D1;
+      --vermelho-escuro: #B22222;
+      --hover: #8B0000;
+      --radius: 8px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      background-color: var(--vermelho-claro);
+      color: black;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header, footer {
+      background-color: var(--vermelho-escuro);
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+      padding: 6px 12px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.8);
+      transition: background .2s;
+    }
+    nav ul li a:hover {
+      color: white;
+      background: var(--hover);
+    }
+    nav ul li a.active {
+      background: white;
+      color: var(--vermelho-escuro);
+      box-shadow: 0 0 8px rgba(0,0,0,0.2);
+    }
+    main {
+      flex: 1;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    section {
+      text-align: center;
+      padding: 20px;
+    }
+    .workspace {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      padding: 20px;
+    }
+    .editor, .preview {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      padding: 20px;
+      width: 320px;
+    }
+    .editor label {
+      display: block;
+      margin: 8px 0 4px;
+      font-weight: bold;
+    }
+    .editor input, .editor textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #bbb;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    .editor button {
+      background-color: #0078D7;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-right: 8px;
+    }
+    .editor button:hover {
+      background-color: #005fa3;
+    }
+    .preview h2, .preview p {
+      margin: 6px 0;
+      text-align: left;
+    }
+    .preview {
+      min-height: 250px;
+      height: auto;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Cartas</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html" class="nav-link">Início</a></li>
-        <li><a href="sobre.html" class="nav-link">Sobre</a></li>
-        <li><a href="cartas.html" class="nav-link">Cartas</a></li>
-        <li><a href="regras.html" class="nav-link">Regras</a></li>
-        <li><a href="inteligencia-artificial.html" class="nav-link">IA</a></li>
-        <li><a href="contato.html" class="nav-link">Contato</a></li>
-      </ul>
-    </nav>
-  </header>
 
-  <main>
-    <div class="hero">
-      <h2>✏️ Criar Carta de Dicas</h2>
-      <p>Edite título, descrição, cores e a lista de 10 dicas. Em seguida, exporte sua carta como imagem.</p>
-    </div>
-    <div class="workspace">
-      <div class="editor" id="editorD">
-        <h3>Editor de Dicas</h3>
-        <label for="tituloD">Título</label>
-        <input type="text" id="tituloD" placeholder="Nome da Carta" />
-        <label for="subtituloD">Descrição</label>
-        <textarea id="subtituloD" rows="2" placeholder="Subtítulo"></textarea>
-        <label for="corFundoD">Cor do Fundo</label>
-        <input type="color" id="corFundoD" value="#D3D3D3" />
-        <label for="corTextoD">Cor do Texto</label>
-        <input type="color" id="corTextoD" value="#000000" />
-        <h4>Dicas (1–10)</h4>
-        <div id="dicasCamposD"></div>
-        <button onclick="atualizarCarta('D')">Atualizar</button>
-        <button onclick="exportarCarta('D')">Exportar</button>
-      </div>
+<header>
+  <h1>Cartas</h1>
+  <nav>
+    <ul>
+      <li><a href="index.html" class="nav-link">Início</a></li>
+      <li><a href="sobre.html" class="nav-link">Sobre</a></li>
+      <li><a href="cartas.html" class="nav-link">Cartas</a></li>
+      <li><a href="regras.html" class="nav-link">Regras</a></li>
+      <li><a href="inteligencia-artificial.html" class="nav-link">IA</a></li>
+      <li><a href="contato.html" class="nav-link">Contato</a></li>
+    </ul>
+  </nav>
+</header>
 
-      <div class="preview" id="cartaD" style="background:#D3D3D3; color:#000000;">
-        <h2 id="tituloPreviewD">Nome da Carta</h2>
-        <p id="subtituloPreviewD">Descrição da carta aqui.</p>
-        <ul id="listaDicasPreviewD">
-          <li>Dica 1</li><li>Dica 2</li><li>Dica 3</li><li>Dica 4</li><li>Dica 5</li>
-          <li>Dica 6</li><li>Dica 7</li><li>Dica 8</li><li>Dica 9</li><li>Dica 10</li>
-        </ul>
-      </div>
-    </div>
-  </main>
+<main>
+<section>
+  <h2>Crie sua Carta Personalizada</h2>
+  <p>Edite o título, texto da dica e cores. Visualize e exporte como imagem.</p>
+</section>
 
-  <footer>
-    <p>&copy; 2025 Jogo de Cartas.</p>
-    <p class="small">Hospedado no <a href="https://mmmaria555.github.io/Cardgames/" target="_blank" style="color: white; text-decoration: underline;">GitHub Pages</a></p>
-  </footer>
+<div class="workspace">
+  <!-- Editor -->
+  <div class="editor" id="editorC">
+    <h3>Editor de Carta</h3>
+    <label for="tituloC">Título</label>
+    <input type="text" id="tituloC" value="Palavra-chave" placeholder="Nome da Carta">
+    <label for="subtituloC">Dicas</label>
+    <textarea id="subtituloC" rows="6">1. Está relacionado a algo que usamos todos os dias
+2. Pode ser encontrado em qualquer casa
+3. É feito de plástico
+4. Está na cozinha</textarea>
+    <label for="corFundoC">Cor do Fundo</label>
+    <input type="color" id="corFundoC" value="#FFFFFF">
+    <label for="corTextoC">Cor do Texto</label>
+    <input type="color" id="corTextoC" value="#000000">
+    <button onclick="atualizarCarta('C')">Atualizar</button>
+    <button onclick="exportarCarta('C')">Exportar</button>
+  </div>
 
-  <script>
-    // marca o link ativo com base no nome do arquivo atual
-    (function(){
-      const links = document.querySelectorAll('.nav-link');
-      const path = window.location.pathname.split('/').pop().toLowerCase() || 'cartas.html';
-      links.forEach(a => { if (a.getAttribute('href').toLowerCase() === path) a.classList.add('active'); });
-    })();
+  <!-- Preview -->
+  <div class="preview" id="cartaC" style="background-color:#FFFFFF; color:#000000;">
+    <h2 id="tituloPreviewC">Palavra-chave</h2>
+    <p id="subtituloPreviewC">
+      1. Está relacionado a algo que usamos todos os dias<br>
+      2. Pode ser encontrado em qualquer casa<br>
+      3. É feito de plástico<br>
+      4. Está na cozinha
+    </p>
+  </div>
+</div>
+</main>
 
-    // gera 10 campos de dica
-    (function(){
-      const c = document.getElementById('dicasCamposD');
-      for (let i = 1; i <= 10; i++){
-        const inp = document.createElement('input');
-        inp.type='text'; inp.id='Dica'+i; inp.placeholder='Dica '+i;
-        c.appendChild(inp);
+<footer>
+  <p>&copy; 2025 Jogo de Cartas.</p>
+  <p class="small">Hospedado no <a href="https://mmmaria555.github.io/Cardgames/" target="_blank" style="color:white;text-decoration:underline;">GitHub Pages</a></p>
+</footer>
+
+<script>
+  function atualizarCarta(pref) {
+    const titulo = document.getElementById('titulo' + pref).value || "Nome da Carta";
+    const subtitulo = document.getElementById('subtitulo' + pref).value || "Dicas aqui...";
+    const corFundo = document.getElementById('corFundo' + pref).value;
+    const corTexto = document.getElementById('corTexto' + pref).value;
+
+    document.getElementById('tituloPreview' + pref).innerText = titulo;
+    document.getElementById('subtituloPreview' + pref).innerHTML = subtitulo.replace(/\n/g, "<br>");
+    const carta = document.getElementById('carta' + pref);
+    carta.style.backgroundColor = corFundo;
+    carta.style.color = corTexto;
+
+    carta.style.height = carta.scrollHeight + 'px';
+  }
+
+  function exportarCarta(pref) {
+    const carta = document.getElementById('carta' + pref);
+    carta.style.height = carta.scrollHeight + 'px';
+
+    html2canvas(carta).then(canvas => {
+      let link = document.createElement('a');
+      link.download = 'carta-' + pref.toLowerCase() + '.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+  }
+
+  // Marca link ativo no menu
+  (function(){
+    const links = document.querySelectorAll('.nav-link');
+    const path = window.location.pathname.split('/').pop().toLowerCase() || 'index.html';
+    links.forEach(a => {
+      if (a.getAttribute('href').toLowerCase() === path) {
+        a.classList.add('active');
       }
-    })();
+    });
+  })();
+</script>
 
-    function atualizarCarta(pref){
-      const carta = document.getElementById('carta'+pref);
-      const t = document.getElementById('titulo'+pref).value,
-            s = document.getElementById('subtitulo'+pref).value,
-            bg = document.getElementById('corFundo'+pref).value,
-            fg = document.getElementById('corTexto'+pref).value;
-      document.getElementById('tituloPreview'+pref).innerText = t || 'Nome da Carta';
-      document.getElementById('subtituloPreview'+pref).innerText = s || 'Descrição da carta aqui.';
-      carta.style.background = bg;
-      carta.style.color = fg;
-      const lst = document.getElementById('listaDicasPreviewD');
-      lst.innerHTML = '';
-      for (let i=1;i<=10;i++){
-        const v = document.getElementById('Dica'+i).value.trim() || ('Dica '+i);
-        const li = document.createElement('li');
-        li.textContent = v;
-        lst.appendChild(li);
-      }
-    }
-
-    function exportarCarta(pref){
-      html2canvas(document.getElementById('carta'+pref)).then(canvas=>{
-        const a=document.createElement('a');
-        a.download='carta-dicas.png';
-        a.href=canvas.toDataURL('image/png');
-        a.click();
-      });
-    }
-  </script>
 </body>
 </html>
